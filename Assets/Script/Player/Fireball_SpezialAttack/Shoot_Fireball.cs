@@ -24,6 +24,7 @@ public class Shoot_Fireball : MonoBehaviour
     {
         PosShoot();
         RotateBullet();
+        
 
     }
 
@@ -64,7 +65,7 @@ public class Shoot_Fireball : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<Enemy>().EnemyGetDmg(playerDMG);
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             Instantiate(explosion, transform.position, Quaternion.identity);
             Debug.Log("tREFFER");
         }
@@ -73,7 +74,6 @@ public class Shoot_Fireball : MonoBehaviour
         {
             collision.gameObject.GetComponent<Boss1>().BossGetDmg(playerDMG);
             Destroy(gameObject);
-            gameObject.SetActive(false);
             Instantiate(explosion, transform.position, Quaternion.identity);
             Debug.Log("Boss treffer");
         }

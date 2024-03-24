@@ -31,7 +31,7 @@ public class Boss1 : MonoBehaviour
     {
         bossLife -= dmg;
         Debug.Log("Bosslife" +  bossLife);
-        if(bossLife == 0)
+        if(bossLife <= 0)
         {
             Destroy(gameObject);
         }

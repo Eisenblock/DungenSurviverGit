@@ -28,7 +28,7 @@ public class SpawnerLVL_1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer = 90;
+        timer = 20;
         spawnPos_Zombie = new Vector2 (0, 0);
         bossPos = new Vector2(0, 0);
         //Instantiate(player, spawnPos, Quaternion.identity);
