@@ -13,7 +13,7 @@ public class StartLoad : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             player.GetComponent<Player>().SavePlayerStats();
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Level1");
         }
     }
 }
