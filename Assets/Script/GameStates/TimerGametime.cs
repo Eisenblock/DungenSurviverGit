@@ -27,13 +27,11 @@ public class TimerGametime : MonoBehaviour
     {
         if (scene.name == "SampleScene")
         {
-            Debug.Log("Resetting timer...");
             elapsedTime = 0;
             text.text = elapsedTime.ToString();
         }
         else
         {
-            Debug.Log("Continuing timer...");
             Timer();
         }
 

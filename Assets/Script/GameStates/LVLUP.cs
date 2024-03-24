@@ -24,20 +24,20 @@ public class LVLUP : MonoBehaviour
 
     public void LvL_UPDmg()
     {
-        player.GetComponent<Player>().LvL_UPDMG();
+        player.GetComponent<Player>().LvL_UPDMG(5);
         panel.SetActive(false);
         Time.timeScale = 1.0f;
     }
     public void LvL_UPDefense()
     {
-        player.GetComponent<Player>().LvL_UPDefense();
+        player.GetComponent<Player>().LvL_UPDefense(5);
         panel.SetActive(false);
         Time.timeScale = 1.0f;
     }
 
     public void LvL_UPLife()
     {
-        player.GetComponent<Player>().LvL_UPLife();
+        player.GetComponent<Player>().LvL_UPLife(10);
         panel.SetActive(false);
         Time.timeScale = 1.0f;
     }

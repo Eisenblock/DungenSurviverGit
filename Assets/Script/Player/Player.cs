@@ -18,7 +18,12 @@ public class Player : MonoBehaviour
     public int defense;
     public int speedPlayer;
     int expPlayer = 0;
+    public bool doubleShoot;
 
+    //All Bool
+    bool doubleShoot2;
+    public bool fireball_bool;
+    public bool fire;
 
     //MovementVariables
     Rigidbody2D rb;
@@ -30,6 +35,7 @@ public class Player : MonoBehaviour
     public GameObject bullet;
     public Vector3 mousePos;
     public GameObject LifebarPos;
+    public GameObject fireball;
     Scene scene;
 
     // Start is called before the first frame update
@@ -38,11 +44,6 @@ public class Player : MonoBehaviour
         
         DontDestroyOnLoad(LifebarPos);
         DontDestroyOnLoad(gameObject);
-        if(scene.name == "Start_Area")
-        {
-            ResetPlayerStats();
-        }
-
         rb = GetComponent<Rigidbody2D>();
         fillHealth.fillAmount = lifePlayer / MaxlifePlayer;
         
@@ -53,6 +54,7 @@ public class Player : MonoBehaviour
     {
         MovePlayer();
         FirePlayer();
+        FireBall_Spezial();
     }
 
     void MovePlayer()
@@ -73,11 +75,33 @@ public class Player : MonoBehaviour
 
     void FirePlayer()
     {
-        
-        if (Input.GetButtonDown("Jump"))
+        if (fire == true)
         {
-                Instantiate(bullet, transform.position, Quaternion.identity);
+            if (Input.GetButtonDown("Jump"))
+            {
+
+                if (doubleShoot == true)
+                {
+                    Debug.Log("Double shoot activated!");
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    Vector2 go = new Vector2(transform.position.x - 1, transform.position.y);
+                    Instantiate(bullet, go, Quaternion.identity);
+                    fire = false;
+                    Invoke("Fire_AtkSpeed", 1f);
+                }
+                else
+                {
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    fire = false;
+                    Invoke("Fire_AtkSpeed", 1f);
+                }
+            }
         }
+    }
+
+    private void Fire_AtkSpeed()
+    {
+        fire = true;
     }
 
     public void PLayerTakeDamage(int dmg)
@@ -87,7 +111,7 @@ public class Player : MonoBehaviour
         if(lifePlayer <= 0)
         {
             //SavePlayerStats();
-            ResetPlayerStats();
+            //ResetPlayerStats();
             Destroy(gameObject);
             SceneManager.LoadScene("GameOver");
         }
@@ -141,24 +165,54 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void LvL_UPDefense()
+    public void LvL_UPDefense(int def)
     {
-        defense += 5;
+        defense += def;
         Debug.Log("Defense " + defense);
     }
 
-    public void LvL_UPDMG()
+    public void LvL_UPDMG(int dmg)
     {
-        dmgPlayer += 5;
+        dmgPlayer += dmg;
         Debug.Log("DMG " + dmgPlayer);
     }
 
-    public void LvL_UPLife()
+    public void LvL_UPLife(int life)
     {
-        MaxlifePlayer += 10;
-        lifePlayer += 10;
+        MaxlifePlayer += life;
+        lifePlayer += life;
         fillHealth.fillAmount = lifePlayer / MaxlifePlayer;
         //SavePlayerStats();
         Debug.Log("MaxLife: " + lifePlayer);
     }
+
+    public void DoubleShoot()
+    {
+        doubleShoot = true;
+        Debug.Log("DoubleShoot : true " + doubleShoot);
+    }
+    public void Fireball_true()
+    {
+        fireball_bool = true;
+    }
+
+    public void FireBall_Spezial()
+    {
+        if (fireball_bool == true)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Instantiate(fireball, transform.position, Quaternion.identity);
+                Debug.Log("Fireball" + fireball);      
+                fireball_bool = false;
+                Invoke("Fireball_AtkSpeed", 1f);
+            }
+        }
+    }
+
+    private void Fireball_AtkSpeed()
+    {
+        fireball_bool = true;
+    }
+   
 }
